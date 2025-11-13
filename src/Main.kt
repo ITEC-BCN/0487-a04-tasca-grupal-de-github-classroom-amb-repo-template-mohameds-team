@@ -44,6 +44,7 @@ fun main(){
     for(partida in 0 until partides) {
         var acumuladorCPU: Int = 0
         var tiradaActual: Int = 0
+        var tiradaActualCPU: Int = 0
 
         for (tirada in 0 until tiradesGuardades[partida].size - 1) {
             /** Tirades persona **/
@@ -58,7 +59,9 @@ fun main(){
             tiradesGuardades[partida][tiradesPerPartida] += tiradaActual
 
             /** Tirades CPU **/
-            acumuladorCPU += Random.nextInt(1, 6 + 1)
+            tiradaActualCPU = Random.nextInt(1, 6 + 1)
+            acumuladorCPU += tiradaActualCPU
+            println("CPU ha tret un ${CARES_DAU[tiradaActualCPU-1]} !")
         }
 
         println("Partida acabada!")
