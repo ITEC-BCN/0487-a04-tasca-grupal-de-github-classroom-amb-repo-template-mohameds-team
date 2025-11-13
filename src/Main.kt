@@ -10,7 +10,7 @@ fun main(){
     var nom: String?
 
     println(DAUS)
-    println("👋 Benvingut/da al joc dels daus.")
+    println("👋 Benvingut/da al joc dels daus Per guanyar cada partida, la suma dels punts de les teves tirades dels teus daus ha de ser superior a la de la CPU.")
 
     do {
         println("Com et dius?")
