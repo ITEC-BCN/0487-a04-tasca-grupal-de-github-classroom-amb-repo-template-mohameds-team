@@ -7,12 +7,24 @@ fun main(){
     var partides: Int?
     var tiradesPerPartida: Int?
     var partidesGuanyades = 0
+    var nom: String?
 
     println(DAUS)
-    println("Benvingut/da al joc dels daus.\nPer guanyar cada partida, la suma dels punts de les teves tirades dels teus daus ha de ser superior a la de la CPU")
+    println("Benvingut/da al joc dels daus.")
+
+    do {
+        println("Com et dius?")
+        nom = readLine()
+
+        if (nom.isNullOrEmpty() || !nom.all { it.isLetter() }) {
+            println("⚠️ Ep! Això no sona a nom real. Fes servir només lletres, res de números ni robots! 🤨")
+            nom = null
+        }
+    } while (nom == null)
+
+    println("Molt bé $nom! Per guanyar, la suma dels punts de les teves tirades dels teus daus ha de ser superior a la de la CPU")
     println(DAUS)
 
-    // Llegim el número de partides que volem jugar
     do {
         println("Quantes partides vols jugar? (de 1 a 3)")
         partides = readLine()?.toIntOrNull()
@@ -23,7 +35,6 @@ fun main(){
         }
     }while(partides == null)
 
-    // Llegim el número de quantes tirades volem fer per cada partida
     do {
         println("Quantes tirades vols fer per cada partida? (de 1 a 6)")
         tiradesPerPartida = readLine()?.toIntOrNull()
@@ -34,42 +45,35 @@ fun main(){
         }
     }while(tiradesPerPartida == null)
 
-    // Declarem la matriu
     var tiradesGuardades: Array<IntArray>
 
-    // Inicialitzem la matriu de partides files i (tiradesPerPartida + 1) columnes
     tiradesGuardades = Array(partides){IntArray((tiradesPerPartida + 1)) }
 
-    // Repetim tantes vegades com partides
     for(partida in 0 until partides) {
         var acumuladorCPU: Int = 0
         var tiradaActual: Int = 0
         var tiradaActualCPU: Int = 0
 
         for (tirada in 0 until tiradesGuardades[partida].size - 1) {
-            /** Tirades persona **/
             println("Tira el dau! (Intent $tirada)")
             tiradaActual = Random.nextInt(1, 6 + 1)
             println("Has tret un ${CARES_DAU[tiradaActual-1]} !")
 
-            // Guardem la tirada
             tiradesGuardades[partida][tirada] = tiradaActual
 
-            // Acumulem el sumatori a l'última columna de la fila
             tiradesGuardades[partida][tiradesPerPartida] += tiradaActual
 
-            /** Tirades CPU **/
             tiradaActualCPU = Random.nextInt(1, 6 + 1)
             acumuladorCPU += tiradaActualCPU
             println("CPU ha tret un ${CARES_DAU[tiradaActualCPU-1]} !")
         }
 
         println("Partida acabada!")
-        println("Tu has aconseguit ${tiradesGuardades[partida][tiradesPerPartida]} punts")
+        println("$nom, has aconseguit ${tiradesGuardades[partida][tiradesPerPartida]} punts")
         println("La CPU ha aconseguit $acumuladorCPU punts")
 
         if (tiradesGuardades[partida][tiradesPerPartida] > acumuladorCPU){
-            println("Has guanyat!")
+            println("Has guanyat $nom!")
             partidesGuanyades ++
         }else if (tiradesGuardades[partida][tiradesPerPartida] < acumuladorCPU){
             println("Has perdut!")
@@ -77,5 +81,5 @@ fun main(){
             println("Heu empatat!")
         }
     }
-    println("Has guanyat el ${(partidesGuanyades.toDouble() / partides) * 100}% de les partides")
+    println("$nom, has guanyat el ${(partidesGuanyades.toDouble() / partides) * 100}% de les partides")
 }
