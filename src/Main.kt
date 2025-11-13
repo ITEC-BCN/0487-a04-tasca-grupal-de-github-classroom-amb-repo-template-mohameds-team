@@ -6,6 +6,7 @@ fun main(){
 
     var partides: Int?
     var tiradesPerPartida: Int?
+    var partidesGuanyades = 0
 
     println(DAUS)
     println("Benvingut/da al joc dels daus.\nPer guanyar cada partida, la suma dels punts de les teves tirades dels teus daus ha de ser superior a la de la CPU")
@@ -66,10 +67,12 @@ fun main(){
 
         if (tiradesGuardades[partida][tiradesPerPartida] > acumuladorCPU){
             println("Has guanyat!")
+            partidesGuanyades ++
         }else if (tiradesGuardades[partida][tiradesPerPartida] < acumuladorCPU){
             println("Has perdut!")
         }else{
             println("Heu empatat!")
         }
     }
+    println("Has guanyat el ${(partidesGuanyades.toDouble() / partides) * 100}% de les partides")
 }
